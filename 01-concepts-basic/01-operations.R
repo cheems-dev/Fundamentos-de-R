@@ -9,6 +9,3 @@
 
 # Resta
 4 - 3
-
-
-View(orangeec)
