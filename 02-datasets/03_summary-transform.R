@@ -7,3 +7,5 @@ wt
 #transform: función para modificar los valores de un dataset.
 mtcars.new <- transform(mtcars,wt=wt*1000/2)
 summary(mtcars.new)
+# Importante
+# Adaptar todas los datos y variables para la comprension
