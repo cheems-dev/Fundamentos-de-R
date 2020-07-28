@@ -1,7 +1,8 @@
-install.packages("plotty")
+install.packages(c("plotly"))
 
 library(ggplot2)
 library(dplyr)
+library(plotly)
 # Nota -> añadir una variable mas a nuestro data set
 # Promedio -> nuestro data orangeec$DPC.PC
 economy <- mean(orangeec$GDP.PC)
@@ -24,4 +25,17 @@ ggplot(orangeec, aes(Education.invest...GDP , Unemployment))+
   geom_point(aes(color=factor(Strong_economy), size=X..pop.below.poverty.line))+
   labs(s="Inversion en educacion",
        y="Desempleo",
-       # title="Inversion en educacion y  segun por debajo de la linea de pobreza")
+       title="Inversion en educacion y  segun por debajo de la linea de pobreza")
+
+# Uso de plots interactivos
+my_graph <- ggplot(orangeec, aes(Internet.penetration...population,
+                                 Creat.Ind...GDP,
+                                 label=row.names(orangeec)))+
+  geom_point()+
+    labs(x="Penetracion de internet en la poblacion",
+         y="Aporte de la economia",
+         title ="Penetracion de internet y aporte de la economia naranja")
+my_graph
+# hacemos uso de plotty una libreria open source "js"
+economy_plotly = ggplotly(my_graph)
+economy_plotly

@@ -23,6 +23,7 @@ ggplot(mtcars, aes(x=hp))+
   theme(panel.background = element_blank(), panel.grid = element_blank(),
         panel.grid.minor = element_blank())
 
+
 #Binwidth
 ggplot(mtcars, aes(x=hp))+
   geom_histogram(binwidth = 30)+

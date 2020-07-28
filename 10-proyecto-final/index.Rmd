@@ -1,0 +1,69 @@
+---
+title: "Economia Naranja"
+author: "Luis Davaria"
+date: "27/7/2020"
+output: html_document
+---
+
+```{r}
+orangeec <- read.csv('/home/davaria/Documentos/platzi/Fundamentos-de-R/data/orangeec/orangeec.csv')
+data(orangeec)
+summary(orangeec)
+```
+Hay correlacion entre aporte economia naranja al PIB y tasa 
+```{r}
+pairs(orangeec[,6:10])
+```
+```{r}
+```
+
+
+```{r}
+library(ggplot2)
+```
+
+
+```{r}
+
+ggplot()+
+  geom_histogram(data=orangeec, aes(x=Internet.penetration...population),
+                 fill="violet", color="red",
+                 binwidth = 5)+
+  # Anadir label's faltantes en el eje x guiandonos con ek bindwith
+  #seq(limite_inicial, limite_final, increment)
+  scale_x_continuous(breaks=seq(40, max(100), 5))+
+  labs(x="Penetracion de internet en la poblacion",y="Cantidad de paises",
+       title="Penetracion de internet en los paises de LATAM")+
+  theme(panel.background = element_blank(), panel.grid = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
+Promedio de PIB per capita
+```{r}
+library(dplyr)
+economy <- mean(orangeec$GDP.PC)
+economy
+```
+Mutamos nuestro dataframe añadiendo columna Strong_economy
+```{r}
+
+  orangeec <- orangeec %>%
+    mutate(Strong_economy = ifelse(GDP.PC < economy,
+                                   "Por debajo del promedio",
+                                   "Sobre- Arriba promedio pib per capita"))
+```
+
+Creamos nuestro boxplot
+```{r}
+ggplot(orangeec,aes(x=Strong_economy, y = Creat.Ind...GDP,
+                    fill=Strong_economy))+
+  geom_boxplot(alpha= 0.4)+
+  labs(x ="Tipo de pais", y = "Aporte de economia narajana al pib",
+       title= "Aporte de la economia naranja en pib paises latam con alto y bajo  pib per capita")+
+  theme(legend.position = "none")+
+  theme(panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())
+```
+
+Nuestro bloxplot indica que los paises sobre el prom en pib per capita , tienen una dispersion mucho mas altaen cuanto a los aportes de la ecnonomia naranja. Nota: Confirmar con desviacion estandar
